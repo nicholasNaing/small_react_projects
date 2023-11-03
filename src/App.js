@@ -1,23 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+
+import React,{useState} from 'react';
+import Root from './components/Root';
+
+export const pageContext = React.createContext()
+export const styleContext = React.createContext()
 
 function App() {
+  const [theme,setTheme] = useState(false)
+  const [style,setStyle] = useState({});
+  const [page,setPage] = useState("todo")
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App" style={{background: `linear-gradient(30deg,${style.linearColor1},${style.linearColor2})`}}>
+      <pageContext.Provider value={[page,setPage]}>
+          <styleContext.Provider value={[style,setStyle,theme,setTheme]}>
+            <Root/>
+          </styleContext.Provider>
+      </pageContext.Provider>
     </div>
   );
 }
